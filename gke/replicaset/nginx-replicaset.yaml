@@ -1,0 +1,19 @@
+apiVersion: apps/v1     # the k8s version
+kind: ReplicaSet        # object type
+metadata:               # enable you to specific name of the app
+  name: nginx-webapp-rs
+  labels:               # used to communication of the app
+    app: nginx-webapp
+spec:                   # used to define the specification of the app
+  replicas: 3           # amount of stable copies in the replicas. 3 is the minimum 
+  selector:
+    matchLabels:
+      app: nginx-webapp
+  template:
+    metadata:
+      labels:
+        app: nginx-webapp
+    spec:               # The hiding files in the etcd is kept and managed in the kubernetes status 
+      containers:
+      - name: nginx-webapp
+        image: nginx:latest
